@@ -20,6 +20,7 @@ Wordpress 文章点赞。
 
 1. 上传 `wp-zan`目录 到 `/wp-content/plugins/` 目录
 2. 在后台插件菜单激活该插件
+3. 添加 `<?php wp_zan();?>` 到需要的位置
 
 == Changelog ==
 
