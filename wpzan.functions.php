@@ -1,5 +1,5 @@
 <?php
-	function wp_zan(){
+	function wpzan(){
 		global $user_ID;
 		get_currentuserinfo();
 
@@ -22,14 +22,12 @@
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
 		}
 	}
-	register_activation_hook(__FILE__, 'wpzan_install');
 
 	function wpzan_uninstall(){
 		global $wpdb, $wpzan_table_name;
 
 		$wpdb->query("DROP TABLE IF EXISTS {$wpzan_table_name}");
 	}
-	register_deactivation_hook(__FILE__, 'wpzan_uninstall');
 
 	function wpzan_plugin_action_link($actions, $plugin_file, $plugin_data){
 		if( strpos($plugin_file, 'wp-zan') !== false && is_plugin_active($plugin_file) ){
@@ -75,6 +73,31 @@
 	}
 	add_action( 'wp_ajax_wpzan', 'wpzan_callback');
 	add_action( 'wp_ajax_nopriv_wpzan', 'wpzan_callback');
+
+	/**
+	 * 获取设置
+	 * @return [array]
+	 */
+	function get_setting(){
+		return get_option('wpzan_setting');
+	}
+
+	/**
+	 * 删除设置
+	 * @return [void]
+	 */
+	function delete_setting(){
+		delete_option('wpzan_setting');
+	}
+
+	/**
+	 * 升级设置
+	 * @param  [array] $setting
+	 * @return [void]
+	 */
+	function update_setting($setting){
+		update_option('wpzan_setting', $setting);
+	}	
 
 	function wpzan_css_url($css_url){
 		return WPZAN_URL . "/static/css/{$css_url}.css";
