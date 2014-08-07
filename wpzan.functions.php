@@ -1,5 +1,5 @@
 <?php
-	function wpzan(){
+	function wp_zan(){
 		global $user_ID;
 		get_currentuserinfo();
 
