@@ -27,7 +27,7 @@
     function wpzan_setting_scripts(){
 		if( isset($_GET['page']) && $_GET['page'] == "wpzan.functions.php" ){
     		wp_enqueue_style( 'wp-color-picker' );
-    		wp_enqueue_script( 'wpzan_setting', plugins_url('/static/js/wp-zan-setting.js', __FILE__ ), array( 'wp-color-picker' ), false, true );		
+    		wp_enqueue_script( 'wpzan_setting', wpzan_js_url('wp-zan-setting'), array( 'wp-color-picker' ), false, true );	
 		}
     }
 
@@ -63,7 +63,7 @@
 	add_filter('plugin_action_links', 'wpzan_plugin_action_link', 10, 4);
 
 	function wpzan_scripts(){
-		wp_enqueue_style( 'wpzan', wpzan_css_url('wp-zan'), array(), WPZAN_VERSION );
+		wp_enqueue_style( 'wpzan', wpzan_css_url('wp-zan-0.0.5'), array(), WPZAN_VERSION );
 
 		wp_enqueue_script('jquery');
 		wp_enqueue_script( 'wpzan',  wpzan_js_url('wp-zan'), array(), WPZAN_VERSION );
