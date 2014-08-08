@@ -13,7 +13,7 @@ function wpzan(post_id, user_id){
     		"action": "wpzan",
         	"post_id": post_id,
         	"user_id": user_id
-    	}, function(result) { console.log(result);
+    	}, function(result) { //console.log(result);
     		if( result.status == 200 ){
     			var $count = $zan.find('span');
     			$zan.addClass('zaned').removeClass('zan-loader');

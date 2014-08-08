@@ -22,11 +22,28 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	vertical-align: text-bottom;
-	display: inline-block;
 }
 
 .icon-wpzan:before {
 	content: "\e125";
+}
+
+.wp-zan.zan-loader .icon-wpzan{
+	padding:0 7px\9;
+	background: url(../images/loading.gif) 50% 50% no-repeat\9;
+}
+
+.wp-zan.zan-loader .icon-wpzan:before{
+	display: none\9;
+}
+
+.wp-zan.zan-loader .icon-wpzan:before {
+	content: "\e031";
+	-webkit-animation:1s linear 0s normal none infinite rotate;
+	-moz-animation: 1s linear 0s normal none infinite rotate;
+	-ms-animation: 1s linear 0s normal none infinite rotate;
+	-o-animation: 1s linear 0s normal none infinite rotate;
+	animation: 1s linear 0s normal none infinite rotate;
 }
 
 .wp-zan{
@@ -76,4 +93,25 @@
 	0 {-o-transform: scale(1, 1)}
 	50% {-o-transform: scale(1.5, 1.5)}
 	100%{-o-transform: scale(1, 1)}
+}
+
+@-webkit-keyframes rotate{
+	from{-webkit-transform:rotate(0deg)}
+	to{-webkit-transform:rotate(360deg)}
+}
+@-moz-keyframes rotate{
+	from{-moz-transform:rotate(0deg)}
+	to{-moz-transform:rotate(360deg)}
+}
+@-ms-keyframes rotate{
+	from{-ms-transform:rotate(0deg)}
+	to{-ms-transform:rotate(360deg)}
+}
+@-o-keyframes rotate{
+	from{-o-transform:rotate(0deg)}
+	to{-o-transform:rotate(360deg)}
+}
+@keyframes rotate{
+	from{transform:rotate(0deg)}
+	to{transform:rotate(360deg)}
 }

@@ -9,6 +9,28 @@
 		echo $wpzan->zan_button();
 	}
 
+	add_action('admin_menu', 'wpzan_menu');
+	function wpzan_menu() {
+		add_options_page('WP-Zan 设置', 'WP-Zan 设置', 'manage_options', basename(__FILE__), 'wpzan_setting_page');
+		add_action( 'admin_init', 'wpzan_setting_group');
+	}
+
+	function wpzan_setting_group() {
+		register_setting( 'wpzan_setting_group', 'wpzan_setting' );
+	}	
+
+	function wpzan_setting_page(){
+        @include 'include/wpzan-setting.php';
+    }
+
+    add_action('admin_enqueue_scripts', 'wpzan_setting_scripts');
+    function wpzan_setting_scripts(){
+		if( isset($_GET['page']) && $_GET['page'] == "wpzan.functions.php" ){
+    		wp_enqueue_style( 'wp-color-picker' );
+    		wp_enqueue_script( 'wpzan_setting', plugins_url('/static/js/wp-zan-setting.js', __FILE__ ), array( 'wp-color-picker' ), false, true );		
+		}
+    }
+
 	function wpzan_install(){
 		global $wpdb, $wpzan_table_name;
 
@@ -32,7 +54,7 @@
 	function wpzan_plugin_action_link($actions, $plugin_file, $plugin_data){
 		if( strpos($plugin_file, 'wp-zan') !== false && is_plugin_active($plugin_file) ){
 			$myactions = array(
-				'option' => "<a href=\"" . WPZAN_ADMIN_URL . "options-general.php?page=class.wpzan.php\">设置</a>"
+				'option' => "<a href=\"" . WPZAN_ADMIN_URL . "options-general.php?page=wpzan.functions.php\">设置</a>"
 			);
 			$actions = array_merge($myactions, $actions);
 		}
@@ -48,6 +70,21 @@
         wp_localize_script( 'wpzan', 'wpzan_ajax_url', WPZAN_ADMIN_URL . "admin-ajax.php");
 	}
 	add_action('wp_enqueue_scripts', 'wpzan_scripts', 20, 1);
+
+	function wpzan_head_style(){?>
+		<style type="text/css">
+			.wp-zan{
+				color: <?php echo wpzan_get_setting('default-color');?>!important
+			}
+			.wp-zan:hover{
+				color: <?php echo wpzan_get_setting('hover-color');?>!important
+			}
+			.wp-zan.zaned{
+				color: <?php echo wpzan_get_setting('zaned-color');?>!important
+			}
+		</style>
+	<?php }
+	add_action( 'wp_head', 'wpzan_head_style' );
 
 	function wpzan_callback(){
 		$user_id = $_POST['user_id'];
@@ -78,16 +115,30 @@
 	 * 获取设置
 	 * @return [array]
 	 */
-	function get_setting(){
-		return get_option('wpzan_setting');
+	function wpzan_get_setting($key=NULL){
+		$setting = get_option('wpzan_setting');
+		return $key ? $setting[$key] : $setting;
 	}
 
 	/**
 	 * 删除设置
 	 * @return [void]
 	 */
-	function delete_setting(){
+	function wpzan_delete_setting(){
 		delete_option('wpzan_setting');
+	}
+
+	/**
+	 * [wpzan_setting_key description]
+	 * @param  [type] $key [description]
+	 * @return [type]      [description]
+	 */
+	function wpzan_setting_key($key){
+		if( $key ){
+			return "wpzan_setting[$key]";
+		}
+
+		return false;
 	}
 
 	/**
@@ -95,7 +146,7 @@
 	 * @param  [array] $setting
 	 * @return [void]
 	 */
-	function update_setting($setting){
+	function wpzan_update_setting($setting){
 		update_option('wpzan_setting', $setting);
 	}	
 
