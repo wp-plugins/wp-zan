@@ -38,7 +38,7 @@
 									?>
 									<li class="wpzan-color-li">
 										<code><?php echo $V['title'];?></code>
-										<?php $color = $setting[$V['key']] ? $setting[$V['key']] : "#999";?>
+										<?php $color = $setting[$V['key']] ? $setting[$V['key']] : $V['default'];?>
 										<input name="<?php echo wpzan_setting_key($V['key']);?>" type="text" value="<?php echo $color;?>" id="wpzan-default-color" data-default-color="<?php echo $V['default'];?>" class="regular-text wpzan-color-picker" />
 									</li>
 								<?php } 
