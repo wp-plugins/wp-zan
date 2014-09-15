@@ -24,7 +24,7 @@ class wpzan {
 		global $wpdb, $wpzan_table_name;
 		
 		// check in the db for zan
-		$zan_count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $wpzan_table_name WHERE post_id = %d", $this->post_id));
+		$zan_count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(post_id) FROM $wpzan_table_name WHERE post_id = %d", $this->post_id));
 		
 		// returns zan, return 0 if no zan were found
 		$this->zan_count = $zan_count;
@@ -32,16 +32,20 @@ class wpzan {
 	}
 	
 	public function is_zan(){
+		if( isset($_COOKIE['wp_zan_'.$this->post_id]) ){
+			return true;
+		}
+
 		global $wpdb, $wpzan_table_name;
 		
 		if($this->is_loggedin){
 			// user is logged in	
-			$zan_check = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $wpzan_table_name
+			$zan_check = $wpdb->get_var($wpdb->prepare("SELECT COUNT(post_id) FROM $wpzan_table_name
 											WHERE	post_id = %d
 											AND		user_id = %d", $this->post_id, $this->user_id));
 		} else{
 			// user not logged in, check by ip address
-			$zan_check = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $wpzan_table_name
+			$zan_check = $wpdb->get_var($wpdb->prepare("SELECT COUNT(post_id) FROM $wpzan_table_name
 											WHERE	post_id = %d
 											AND		ip_address = %s
 											AND		user_id = %d", $this->post_id, $this->ip, 0));
@@ -59,6 +63,9 @@ class wpzan {
 			$wpdb->insert($wpzan_table_name, array('post_id' => $this->post_id, 
 													'user_id' => $this->user_id,
 													'ip_address' => $this->ip), array('%d', '%d', '%s'));
+
+			$expire = time() + 365*24*60*60;
+        	setcookie('wp_zan_'.$this->post_id, $this->post_id, $expire, '/', $_SERVER['HTTP_HOST'], false);
 		}
 
 		$this->zan_count();
