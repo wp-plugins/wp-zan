@@ -24,6 +24,9 @@ Wordpress 文章点赞。
 
 == Changelog ==
 
+= 0.0.6 =
+* 添加Cookies
+
 = 0.0.4 =
 * 添加一个loading动画
 * 添加颜色设置
