@@ -1,12 +1,12 @@
 <?php
-	function wp_zan(){
+	function wp_zan($odc=false){
 		global $user_ID;
 		get_currentuserinfo();
 
 		$user_ID = $user_ID ? $user_ID : 0;
 		$wpzan = new wpzan(get_the_ID(), $user_ID);
 
-		echo $wpzan->zan_button();
+		echo $wpzan->zan_button($odc);
 	}
 
 	add_action('admin_menu', 'wpzan_menu');

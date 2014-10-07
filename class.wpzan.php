@@ -71,14 +71,15 @@ class wpzan {
 		$this->zan_count();
 	}
 		
-	public function zan_button(){
+	public function zan_button($odc){
 		$class = $this->is_zan() ? 'wp-zan zaned' : 'wp-zan';
 		$userId = $this->is_loggedin ? $this->user_id : 0;	
 		$postId = $this->post_id;
 
 		$action = "wpzan($postId, $userId)";
-
-		$button = sprintf('<a id="wp-zan-%d" class="%s" onclick="%s" href="javascript:;"><i class="icon-wpzan"></i>赞 (<span>%d</span>)</a>', $postId, $class, $action, $this->zan_count);
+		
+		$btn_html = $odc ? '<a id="wp-zan-%d" class="%s" onclick="%s" href="javascript:;">%d</a>' : '<a id="wp-zan-%d" class="%s" onclick="%s" href="javascript:;"><i class="icon-wpzan"></i>赞 (<span>%d</span>)</a>';
+		$button = sprintf($btn_html, $postId, $class, $action, $this->zan_count);
 
 		return $button;
 	}

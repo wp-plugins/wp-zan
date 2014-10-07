@@ -24,6 +24,9 @@ Wordpress 文章点赞。
 
 == Changelog ==
 
+= 0.0.7 =
+* wp_zan($odc=false) 添加一个参数, $odc=true时, 只显示数字, 不显示图标
+
 = 0.0.6 =
 * 添加Cookies
 
