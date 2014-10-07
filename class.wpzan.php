@@ -78,7 +78,7 @@ class wpzan {
 
 		$action = "wpzan($postId, $userId)";
 		
-		$btn_html = $odc ? '<a id="wp-zan-%d" class="%s" onclick="%s" href="javascript:;">%d</a>' : '<a id="wp-zan-%d" class="%s" onclick="%s" href="javascript:;"><i class="icon-wpzan"></i>赞 (<span>%d</span>)</a>';
+		$btn_html = $odc ? '<a id="wp-zan-%d" class="%s" onclick="%s" href="javascript:;"><span>%d</span></a>' : '<a id="wp-zan-%d" class="%s" onclick="%s" href="javascript:;"><i class="icon-wpzan"></i>赞 (<span>%d</span>)</a>';
 		$button = sprintf($btn_html, $postId, $class, $action, $this->zan_count);
 
 		return $button;
