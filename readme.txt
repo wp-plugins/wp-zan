@@ -2,7 +2,7 @@
 Contributors: mufeng
 Tags: wordpress, 文章, 点赞
 Requires at least: 3.0
-Tested up to: 4.0
+Tested up to: 4.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -23,6 +23,9 @@ Wordpress 文章点赞。
 3. 添加 `<?php wp_zan();?>` 到需要的位置
 
 == Changelog ==
+
+= 0.0.9 =
+* 支持Wordpress 4.3
 
 = 0.0.8 =
 * wp_zan($odc=false) 添加一个参数, $odc=true时, 只显示数字, 不显示图标

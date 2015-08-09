@@ -3,7 +3,7 @@
 Plugin Name: WP-Zan
 Plugin URI: http://mufeng.me/wp-zan.html
 Description: Wordpress 文章点赞
-Version: 0.0.8
+Version: 0.0.9
 Author: Mufeng
 Author URI: http://mufeng.me
 */
